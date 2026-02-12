@@ -7,9 +7,9 @@ A lightweight HTTP inspector for Dio with a clean minimal UI. Monitor and debug 
 - ✨ **Automatic Request Capture** - Intercepts all Dio HTTP calls automatically
 - 📱 **Shake to Inspect** - Open the inspector by shaking your device/simulator
 - 🎨 **Clean Minimal UI** - Beautiful, easy-to-use interface
-- 📋 **Copy as cURL** - Export any request as a cURL command
+- 📋 **Copy as cURL** - Copy any request as a cURL command
 - ⚡ **Request Timing** - See how long each request takes
-- 🎯 **Quick Filter** - Quickly find your requests
+- 🎯 **Quick Filter** - Quickly find your requests by URL, HTTP method and status code
 - 💾 **In-Memory Storage** - Configurable circular buffer (default: 1000 calls)
 
 ## Screenshots
