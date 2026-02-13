@@ -100,7 +100,7 @@ class _ResponseTabState extends State<ResponseTab> with AutomaticKeepAliveClient
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: SelectableText(
-                    widget.call.error!.error?.toString() ?? 'Unknown error',
+                    widget.call.error!.error?.toString().trim() ?? 'Unknown error',
                     style: DioSpyTypo.t14.copyWith(color: DioSpyColors.error),
                   ),
                 ),
@@ -110,7 +110,7 @@ class _ResponseTabState extends State<ResponseTab> with AutomaticKeepAliveClient
                     title: 'Stacktrace',
                     initialExpanded: false,
                     child: SelectableText(
-                      widget.call.error!.stackTrace.toString(),
+                      widget.call.error!.stackTrace.toString().trim(),
                       style: DioSpyTypo.t12.secondary,
                     ),
                   ),
