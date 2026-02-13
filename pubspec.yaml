@@ -2,7 +2,7 @@ name: dio_spy
 description: A lightweight Dio HTTP inspector with clean minimal UI.
 homepage: https://github.com/7wilightxdev/dio_spy
 repository: https://github.com/7wilightxdev/dio_spy
-version: 0.0.2
+version: 0.0.3
 
 environment:
   sdk: ^3.0.0
