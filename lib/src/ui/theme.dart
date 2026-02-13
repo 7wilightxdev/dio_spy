@@ -75,38 +75,44 @@ extension DioSpyTypoExt on TextStyle {
   TextStyle get tertiary => withColor(DioSpyColors.textTertiary);
 
   TextStyle withColor(Color color) => copyWith(color: color);
+
+  TextStyle withFontFamily(String? fontFamily) => copyWith(fontFamily: fontFamily);
 }
 
 class DioSpyTheme {
   DioSpyTheme._();
 
-  static ThemeData themeData(BuildContext context) => ThemeData.light().copyWith(
-        scaffoldBackgroundColor: DioSpyColors.background,
-        appBarTheme: AppBarTheme(
-          titleTextStyle: DioSpyTypo.t18.w600,
-          backgroundColor: DioSpyColors.surface,
+  static ThemeData themeData(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final fontFamily = textTheme.bodyLarge?.fontFamily;
+    return ThemeData.light().copyWith(
+      scaffoldBackgroundColor: DioSpyColors.background,
+      appBarTheme: AppBarTheme(
+        titleTextStyle: DioSpyTypo.t18.w600.withFontFamily(fontFamily),
+        backgroundColor: DioSpyColors.surface,
+        foregroundColor: DioSpyColors.textPrimary,
+        elevation: 0,
+        actionsIconTheme: IconThemeData(color: DioSpyColors.textPrimary, size: 24),
+      ),
+      colorScheme: ColorScheme.light(surfaceTint: Colors.transparent),
+      textTheme: textTheme,
+      tabBarTheme: TabBarThemeData(
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: DioSpyColors.divider,
+        labelStyle: DioSpyTypo.t16.w600.withFontFamily(fontFamily),
+        unselectedLabelStyle: DioSpyTypo.t16.w500.withFontFamily(fontFamily),
+        labelColor: DioSpyColors.textPrimary,
+        unselectedLabelColor: DioSpyColors.textTertiary,
+        indicatorColor: DioSpyColors.textPrimary,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          textStyle: DioSpyTypo.t16.withFontFamily(fontFamily),
           foregroundColor: DioSpyColors.textPrimary,
-          elevation: 0,
-          actionsIconTheme: IconThemeData(color: DioSpyColors.textPrimary, size: 24),
         ),
-        colorScheme: ColorScheme.light(surfaceTint: Colors.transparent),
-        textTheme: Theme.of(context).textTheme,
-        tabBarTheme: TabBarThemeData(
-          indicatorSize: TabBarIndicatorSize.tab,
-          dividerColor: DioSpyColors.divider,
-          labelStyle: DioSpyTypo.t16.w600,
-          unselectedLabelStyle: DioSpyTypo.t16.w500,
-          labelColor: DioSpyColors.textPrimary,
-          unselectedLabelColor: DioSpyColors.textTertiary,
-          indicatorColor: DioSpyColors.textPrimary,
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            textStyle: DioSpyTypo.t16,
-            foregroundColor: DioSpyColors.textPrimary,
-          ),
-        ),
-        dividerTheme: DividerThemeData(color: DioSpyColors.divider),
-        progressIndicatorTheme: ProgressIndicatorThemeData(color: DioSpyColors.primary),
-      );
+      ),
+      dividerTheme: DividerThemeData(color: DioSpyColors.divider),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: DioSpyColors.primary),
+    );
+  }
 }
