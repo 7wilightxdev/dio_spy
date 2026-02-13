@@ -3,7 +3,6 @@ description: A lightweight Dio HTTP inspector with clean minimal UI.
 homepage: https://github.com/7wilightxdev/dio_spy
 repository: https://github.com/7wilightxdev/dio_spy
 version: 0.0.2
-publish_to: none
 
 environment:
   sdk: ^3.0.0
