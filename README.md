@@ -11,6 +11,7 @@ A lightweight HTTP inspector for Dio with a clean minimal UI. Monitor and debug 
 - ⚡ **Request Timing** - See how long each request takes
 - 🎯 **Quick Filter** - Quickly find your requests by URL, HTTP method and status code
 - 💾 **In-Memory Storage** - Configurable circular buffer (default: 1000 calls)
+- 🌳 **JSON Visualizer** - Interactive JSON tree viewer
 
 ## Screenshots
 
