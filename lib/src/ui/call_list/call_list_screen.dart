@@ -101,7 +101,7 @@ class _CallListScreenState extends State<CallListScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Spy x Dio'),
+      title: const Text('SPY x DIO'),
       actions: [
         IconButton(
           icon: Icon(_searching ? Icons.search_off : Icons.search),
@@ -188,22 +188,24 @@ class _CallListScreenState extends State<CallListScreen> {
           );
         }
 
-        return ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          itemCount: filtered.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 8),
-          itemBuilder: (context, index) {
-            return _CallListItem(
-              call: filtered[index],
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => CallDetailScreen(call: filtered[index]),
-                  ),
-                );
-              },
-            );
-          },
+        return Scrollbar(
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            itemCount: filtered.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              return _CallListItem(
+                call: filtered[index],
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => CallDetailScreen(call: filtered[index]),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         );
       },
     );
@@ -243,7 +245,11 @@ class _CallListItem extends StatelessWidget {
                   if (call.error != null)
                     const Padding(
                       padding: EdgeInsets.only(left: 4),
-                      child: Icon(Icons.warning_rounded, size: 14, color: DioSpyColors.error),
+                      child: Icon(
+                        Icons.warning_rounded,
+                        size: 16,
+                        color: DioSpyColors.error,
+                      ),
                     ),
                 ],
                 const Spacer(),
@@ -267,8 +273,10 @@ class _CallListItem extends StatelessWidget {
             // Row 2: Endpoint
             Text(
               call.endpoint,
-              style: DioSpyTypo.t16.w600,
-              maxLines: 1,
+              style: DioSpyTypo.t16.w500.copyWith(
+                color: call.error != null ? DioSpyColors.error : null,
+              ),
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
 

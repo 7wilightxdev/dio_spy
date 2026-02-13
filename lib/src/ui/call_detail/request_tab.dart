@@ -1,3 +1,4 @@
+import 'package:dio_spy/src/ui/widgets/method_chip.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/http_call.dart';
@@ -8,13 +9,22 @@ import '../widgets/json_viewer.dart';
 import '../widgets/key_value_row.dart';
 import '../widgets/section_card.dart';
 
-class RequestTab extends StatelessWidget {
+class RequestTab extends StatefulWidget {
   const RequestTab({super.key, required this.call});
   final DioSpyHttpCall call;
 
   @override
+  State<RequestTab> createState() => _RequestTabState();
+}
+
+class _RequestTabState extends State<RequestTab> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    final request = call.request;
+    super.build(context);
+    final request = widget.call.request;
     if (request == null) {
       return Center(child: Text('No request data', style: DioSpyTypo.t16.secondary));
     }
@@ -27,15 +37,30 @@ class RequestTab extends StatelessWidget {
           title: 'General',
           child: Column(
             children: [
-              KeyValueRow(label: 'URL', value: call.uri),
-              KeyValueRow(label: 'Method', value: call.method),
-              KeyValueRow(label: 'Started', value: DioSpyFormatters.formatDateTime(request.time)),
-              KeyValueRow(
-                label: 'Duration',
-                value: DioSpyFormatters.formatDuration(call.duration),
+              KVRow(
+                label: 'Method',
+                valueWidget: MethodChip(method: widget.call.method),
               ),
-              KeyValueRow(label: 'Secure', value: call.secure ? 'Yes (HTTPS)' : 'No (HTTP)'),
-              KeyValueRow(label: 'Size', value: DioSpyFormatters.formatBytes(request.size)),
+              KVRow(
+                label: 'URL',
+                value: widget.call.uri,
+              ),
+              KVRow(
+                label: 'Started',
+                value: DioSpyFormatters.formatDateTime(request.time),
+              ),
+              KVRow(
+                label: 'Duration',
+                value: DioSpyFormatters.formatDuration(widget.call.duration),
+              ),
+              KVRow(
+                label: 'Secure',
+                value: widget.call.secure ? 'Yes (https)' : 'No (http)',
+              ),
+              KVRow(
+                label: 'Size',
+                value: DioSpyFormatters.formatBytes(request.size),
+              ),
             ],
           ),
         ),
@@ -44,33 +69,21 @@ class RequestTab extends StatelessWidget {
         if (request.headers.isNotEmpty)
           SectionCard(
             title: 'Headers (${request.headers.length})',
-            child: Column(
-              children: request.headers.entries
-                  .map((e) => KeyValueRow(label: e.key, value: e.value))
-                  .toList(),
-            ),
+            child: KVRowGroup(entries: request.headers),
           ),
 
         // Cookies
         if (request.cookies.isNotEmpty)
           SectionCard(
             title: 'Cookies (${request.cookies.length})',
-            child: Column(
-              children: request.cookies.entries
-                  .map((e) => KeyValueRow(label: e.key, value: e.value))
-                  .toList(),
-            ),
+            child: KVRowGroup(entries: request.cookies),
           ),
 
         // Query Parameters
         if (request.queryParameters.isNotEmpty)
           SectionCard(
             title: 'Query Parameters (${request.queryParameters.length})',
-            child: Column(
-              children: request.queryParameters.entries
-                  .map((e) => KeyValueRow(label: e.key, value: e.value.toString()))
-                  .toList(),
-            ),
+            child: KVRowGroup(entries: request.queryParameters),
           ),
 
         // Body
@@ -85,7 +98,7 @@ class RequestTab extends StatelessWidget {
                   Text('Fields', style: DioSpyTypo.t16.secondary),
                   const SizedBox(height: 4),
                   ...request.formDataFields!.map(
-                    (f) => KeyValueRow(label: f.name, value: f.value),
+                    (f) => KVRow(label: f.name, value: f.value),
                   ),
                   const SizedBox(height: 8),
                 ],
