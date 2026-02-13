@@ -16,16 +16,16 @@ class DioSpyColors {
   static const Color textOnPrimary = Color(0xFFFFFFFF);
 
   // Status codes
-  static const Color success = Color(0xFF12CA5B);
+  static const Color success = Color(0xFF027F31);
   static const Color info = Color(0xFF094BF4);
   static const Color warning = Color(0xFFFF8718);
   static const Color error = Color(0xFFE52E22);
 
   // Method chip colors
-  static const Color getText = Color(0xFF094BF4);
-  static const Color postText = Color(0xFF12CA5B);
-  static const Color putText = Color(0xFFFF8718);
-  static const Color deleteText = Color(0xFFE52E22);
+  static const Color getText = Color(0xFF027F31);
+  static const Color postText = Color(0xFFAC7A04);
+  static const Color putText = Color(0xFF0A58BA);
+  static const Color deleteText = Color(0xFF973027);
   static const Color patchText = Color(0xFF7C45BE);
 
   static Color methodColors(String method) {

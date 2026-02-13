@@ -39,10 +39,12 @@ class _SectionCardState extends State<SectionCard> {
             behavior: HitTestBehavior.opaque,
             onTap: () => setState(() => _expanded = !_expanded),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 children: [
-                  Expanded(child: Text(widget.title, style: DioSpyTypo.t16.w600)),
+                  Expanded(
+                    child: Text(widget.title, style: DioSpyTypo.t16.w600),
+                  ),
                   AnimatedRotation(
                     turns: _expanded ? 0.5 : 0,
                     duration: const Duration(milliseconds: 300),

@@ -8,13 +8,22 @@ import '../widgets/key_value_row.dart';
 import '../widgets/section_card.dart';
 import '../widgets/status_chip.dart';
 
-class ResponseTab extends StatelessWidget {
+class ResponseTab extends StatefulWidget {
   const ResponseTab({super.key, required this.call});
   final DioSpyHttpCall call;
 
   @override
+  State<ResponseTab> createState() => _ResponseTabState();
+}
+
+class _ResponseTabState extends State<ResponseTab> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    if (call.loading) {
+    super.build(context);
+    if (widget.call.loading) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -27,7 +36,7 @@ class ResponseTab extends StatelessWidget {
       );
     }
 
-    final response = call.response;
+    final response = widget.call.response;
     if (response == null) {
       return Center(child: Text('No response data', style: DioSpyTypo.t16.secondary));
     }
@@ -41,19 +50,19 @@ class ResponseTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              KeyValueRow(
+              KVRow(
                 label: 'Status',
                 valueWidget: StatusChip(statusCode: response.status),
               ),
-              KeyValueRow(
+              KVRow(
                 label: 'Received',
                 value: DioSpyFormatters.formatDateTime(response.time),
               ),
-              KeyValueRow(
+              KVRow(
                 label: 'Duration',
-                value: DioSpyFormatters.formatDuration(call.duration),
+                value: DioSpyFormatters.formatDuration(widget.call.duration),
               ),
-              KeyValueRow(
+              KVRow(
                 label: 'Size',
                 value: DioSpyFormatters.formatBytes(response.size),
               ),
@@ -64,12 +73,9 @@ class ResponseTab extends StatelessWidget {
         // Headers
         if (response.headers.isNotEmpty)
           SectionCard(
+            initialExpanded: false,
             title: 'Headers (${response.headers.length})',
-            child: Column(
-              children: response.headers.entries
-                  .map((e) => KeyValueRow(label: e.key, value: e.value))
-                  .toList(),
-            ),
+            child: KVRowGroup(entries: response.headers),
           ),
 
         // Body
@@ -80,7 +86,7 @@ class ResponseTab extends StatelessWidget {
           ),
 
         // Error
-        if (call.error != null)
+        if (widget.call.error != null)
           SectionCard(
             title: 'Error',
             child: Column(
@@ -94,17 +100,17 @@ class ResponseTab extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: SelectableText(
-                    call.error!.error?.toString() ?? 'Unknown error',
+                    widget.call.error!.error?.toString() ?? 'Unknown error',
                     style: DioSpyTypo.t14.copyWith(color: DioSpyColors.error),
                   ),
                 ),
-                if (call.error!.stackTrace != null) ...[
+                if (widget.call.error!.stackTrace != null) ...[
                   const SizedBox(height: 8),
                   SectionCard(
                     title: 'Stacktrace',
                     initialExpanded: false,
                     child: SelectableText(
-                      call.error!.stackTrace.toString(),
+                      widget.call.error!.stackTrace.toString(),
                       style: DioSpyTypo.t12.secondary,
                     ),
                   ),

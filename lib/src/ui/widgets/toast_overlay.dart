@@ -76,7 +76,7 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: DioSpyColors.primary,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
               color: DioSpyColors.primary.withValues(alpha: 0.2),

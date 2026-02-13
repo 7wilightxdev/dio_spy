@@ -11,14 +11,14 @@ class MethodChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = DioSpyColors.methodColors(method);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         method.toUpperCase(),
-        style: DioSpyTypo.t14.w700.copyWith(color: color),
+        style: DioSpyTypo.t14.w600.copyWith(color: color),
       ),
     );
   }

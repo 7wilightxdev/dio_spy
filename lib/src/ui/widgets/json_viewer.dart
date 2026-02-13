@@ -4,6 +4,7 @@ import '../../utils/clipboard_helper.dart';
 import '../../utils/formatters.dart';
 import '../theme.dart';
 import 'toast_overlay.dart';
+import 'package:json_visualizer/json_visualizer.dart';
 
 class JsonViewer extends StatelessWidget {
   const JsonViewer({super.key, required this.body, this.maxLength = 100000});
@@ -25,24 +26,11 @@ class JsonViewer extends StatelessWidget {
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: GestureDetector(
-            onTap: () {
-              ClipboardHelper.copy(formatted);
-              DioSpyToast.show(context);
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: Icon(Icons.copy_rounded, size: 16, color: DioSpyColors.textTertiary),
-            ),
-          ),
-        ),
-        SelectableText(formatted, style: DioSpyTypo.t16.secondary),
-      ],
+    return JsonVisualizer(
+      data: body,
+      expandDepth: 3,
+      fontSize: 14,
+      onCopied: () => DioSpyToast.show(context),
     );
   }
 }
