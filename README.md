@@ -44,7 +44,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  dio_spy: ^0.0.4
+  dio_spy: ^0.0.5
 ```
 
 Then run:
@@ -137,7 +137,7 @@ See the [example](example/) folder for a complete working app that demonstrates:
 
 - Dart SDK: `^3.0.0`
 - Flutter: `>=3.10.0`
-- Dio: `>=5.0.0 <6.0.0`
+- Dio: `>=5.2.0 <6.0.0`
 
 ## Limitations
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.5] - 2026-02-16
+
+### Fixes
+
+- Raised Dio lower bound from `>=5.0.0` to `>=5.2.0` (`DioException` was introduced in 5.2.0)
+
 ## [0.0.4] - 2026-02-16
 
 ### Features
@@ -39,4 +45,4 @@ A lightweight HTTP inspector for Dio with a clean minimal UI.
 
 - Dart SDK: `^3.0.0`
 - Flutter: `>=3.10.0`
-- Dio: `>=5.0.0 <6.0.0`
+- Dio: `>=5.2.0 <6.0.0`
