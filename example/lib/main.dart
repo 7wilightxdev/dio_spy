@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   late final DioSpy _dioSpy;
   late final Dio _dio;
   late final ApiService _apiService;
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  // final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     // Set the navigator key (required for DioSpy to work)
-    _dioSpy.setNavigatorKey(_navigatorKey);
+    // _dioSpy.setNavigatorKey(_navigatorKey);
 
     // Initialize Dio with interceptors
     _dio = Dio(
@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DioSpy Example',
-      navigatorKey: _navigatorKey,
+      // navigatorKey: _navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -84,6 +84,11 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
           elevation: 0,
         ),
+      ),
+      // Uncomment this if you want to use DioSpyWrapper instead of navigatorKey
+      builder: (context, child) => DioSpyWrapper(
+        dioSpy: _dioSpy,
+        child: child ?? const SizedBox.shrink(),
       ),
       home: HomeScreen(apiService: _apiService),
       debugShowCheckedModeBanner: false,
