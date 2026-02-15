@@ -10,9 +10,10 @@ import '../widgets/method_chip.dart';
 import '../widgets/status_chip.dart';
 
 class CallListScreen extends StatefulWidget {
-  const CallListScreen({super.key, required this.storage});
+  const CallListScreen({super.key, required this.storage, this.onBack});
 
   final DioSpyStorage storage;
+  final VoidCallback? onBack;
 
   @override
   State<CallListScreen> createState() => _CallListScreenState();
@@ -75,7 +76,7 @@ class _CallListScreenState extends State<CallListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
+    Widget screen = Theme(
       data: DioSpyTheme.themeData(context),
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -97,11 +98,26 @@ class _CallListScreenState extends State<CallListScreen> {
         ),
       ),
     );
+
+    // When used inside DioSpyWrapper, intercept the system back button
+    // to close the inspector instead of popping the root route.
+    if (widget.onBack != null) {
+      screen = PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) widget.onBack!();
+        },
+        child: screen,
+      );
+    }
+
+    return screen;
   }
 
   AppBar _buildAppBar() {
     return AppBar(
       title: const Text('SPY x DIO'),
+      leading: widget.onBack != null ? BackButton(onPressed: widget.onBack) : null,
       actions: [
         IconButton(
           icon: Icon(_searching ? Icons.search_off : Icons.search),
