@@ -44,7 +44,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  dio_spy: ^0.0.1
+  dio_spy: ^0.0.4
 ```
 
 Then run:
@@ -68,28 +68,46 @@ final dioSpy = DioSpy(
 );
 ```
 
-### 2. Setup Navigator Key
-
-```dart
-final navigatorKey = GlobalKey<NavigatorState>();
-
-// Add navigator key to your app
-MaterialApp(
-  navigatorKey: navigatorKey,
-  home: MyHomePage(),
-);
-
-// Set navigator key
-dioSpy.setNavigatorKey(navigatorKey);
-```
-
-### 3. Add Interceptor to Dio
+### 2. Add Interceptor to Dio
 
 ```dart
 final dio = Dio();
 
 // Add DioSpy interceptor
 dio.interceptors.add(dioSpy.interceptor);
+```
+
+### 3. Connect the Inspector UI
+
+You have two options to display the inspector:
+
+#### Option A: DioSpyWrapper (Recommended)
+
+Use `DioSpyWrapper` in your `MaterialApp.builder`. No navigator key needed.
+
+```dart
+MaterialApp(
+  builder: (context, child) => DioSpyWrapper(
+    dioSpy: dioSpy,
+    child: child!,
+  ),
+  home: MyHomePage(),
+);
+```
+
+#### Option B: Navigator Key
+
+Pass a `GlobalKey<NavigatorState>` so DioSpy can push the inspector as a route.
+
+```dart
+final navigatorKey = GlobalKey<NavigatorState>();
+
+MaterialApp(
+  navigatorKey: navigatorKey,
+  home: MyHomePage(),
+);
+
+dioSpy.setNavigatorKey(navigatorKey);
 ```
 
 ### 4. Make HTTP Requests
@@ -103,11 +121,13 @@ final response = await dio.get('https://api.example.com/users');
 ### 5. Open the Inspector
 
 - **Shake your device** - The inspector will open automatically
-- **Open it programmatically** - dioSpy.show();
+- **Open it programmatically** - `dioSpy.showInspector()`
+- **Close it programmatically** - `dioSpy.hideInspector()`
 
 ## Complete Example
 
 See the [example](example/) folder for a complete working app that demonstrates:
+
 - GET, POST, PUT, DELETE requests
 - Error handling
 - Different response types
